@@ -1,13 +1,13 @@
-name: Build & Release on merge to master
+name: Build & Release on merge to main
 
 on:
   pull_request:
     types: [closed]
-    branches: [master]
+    branches: [main]
 
 permissions:
-  contents: write        # create the release + upload assets
-  id-token: write        # (optional) trusted publishing to PyPI
+  contents: write
+  id-token: write
 
 jobs:
   build-and-release:
@@ -50,8 +50,6 @@ jobs:
           name: "v${{ steps.project_version.outputs.version }}"
           body: |
             Automatic release created for PR #${{ github.event.pull_request.number }}.
-          draft: false
-          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -64,3 +62,4 @@ jobs:
             dist/*.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
