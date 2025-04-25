@@ -19,6 +19,8 @@ jobs:
       )
     runs-on: ubuntu-latest
 
+    environment: release
+
     steps:
       - uses: actions/checkout@v4
 
@@ -62,4 +64,9 @@ jobs:
             dist/*.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to PyPI (trusted publishing)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
 
